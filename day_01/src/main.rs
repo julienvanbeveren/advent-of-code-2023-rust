@@ -40,15 +40,17 @@ fn str_to_nums(word: &String) -> String {
     let mut last_num = "";
     let mut final_str = String::from(word);
     for number in num_words.iter() {
-        let res = word.find(number);
-        if res.is_some() {
-            if res.unwrap() < smallest_index {
-                smallest_index = res.unwrap();
-                first_num = *number;    
-            }
-            if res.unwrap() + String::from(*number).chars().count() > largest_index {
-                largest_index = res.unwrap() + String::from(*number).chars().count();
-                last_num = *number;
+        let res = word.match_indices(number);
+        if res.clone().count() > 0 {
+            for (index, _) in res {
+                if index < smallest_index {
+                    smallest_index = index;
+                    first_num = *number;    
+                }
+                if index + String::from(*number).chars().count() > largest_index {
+                    largest_index = index + String::from(*number).chars().count();
+                    last_num = *number;
+                }
             }
         }
     }
@@ -88,5 +90,4 @@ fn part2() {
 fn main() {
     part1();
     part2();
-    println!("{}", str_to_nums(&String::from("4nineeightseven2")));
 }
