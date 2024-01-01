@@ -1,0 +1,1 @@
+Just started to learn Rust and felt like doing some Advent of Code might help :)
